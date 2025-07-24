@@ -1,0 +1,575 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		64D8BFE62E28C7EA006842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64D8BFD02E28C7E9006842DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64D8BFD72E28C7EA006842DB;
+			remoteInfo = GreenScout;
+		};
+		64D8BFF02E28C7EA006842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64D8BFD02E28C7E9006842DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64D8BFD72E28C7EA006842DB;
+			remoteInfo = GreenScout;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		64D8BFD82E28C7EA006842DB /* GreenScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreenScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64D8BFE52E28C7EA006842DB /* GreenScoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreenScoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64D8BFEF2E28C7EA006842DB /* GreenScoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreenScoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		64D8BFDA2E28C7EA006842DB /* GreenScout */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GreenScout;
+			sourceTree = "<group>";
+		};
+		64D8BFE82E28C7EA006842DB /* GreenScoutTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GreenScoutTests;
+			sourceTree = "<group>";
+		};
+		64D8BFF22E28C7EA006842DB /* GreenScoutUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GreenScoutUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64D8BFD52E28C7EA006842DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFE22E28C7EA006842DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFEC2E28C7EA006842DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64D8BFCF2E28C7E9006842DB = {
+			isa = PBXGroup;
+			children = (
+				64D8BFDA2E28C7EA006842DB /* GreenScout */,
+				64D8BFE82E28C7EA006842DB /* GreenScoutTests */,
+				64D8BFF22E28C7EA006842DB /* GreenScoutUITests */,
+				64D8BFD92E28C7EA006842DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64D8BFD92E28C7EA006842DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64D8BFD82E28C7EA006842DB /* GreenScout.app */,
+				64D8BFE52E28C7EA006842DB /* GreenScoutTests.xctest */,
+				64D8BFEF2E28C7EA006842DB /* GreenScoutUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64D8BFD72E28C7EA006842DB /* GreenScout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64D8BFF92E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScout" */;
+			buildPhases = (
+				64D8BFD42E28C7EA006842DB /* Sources */,
+				64D8BFD52E28C7EA006842DB /* Frameworks */,
+				64D8BFD62E28C7EA006842DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				64D8BFDA2E28C7EA006842DB /* GreenScout */,
+			);
+			name = GreenScout;
+			packageProductDependencies = (
+			);
+			productName = GreenScout;
+			productReference = 64D8BFD82E28C7EA006842DB /* GreenScout.app */;
+			productType = "com.apple.product-type.application";
+		};
+		64D8BFE42E28C7EA006842DB /* GreenScoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64D8BFFC2E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScoutTests" */;
+			buildPhases = (
+				64D8BFE12E28C7EA006842DB /* Sources */,
+				64D8BFE22E28C7EA006842DB /* Frameworks */,
+				64D8BFE32E28C7EA006842DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64D8BFE72E28C7EA006842DB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				64D8BFE82E28C7EA006842DB /* GreenScoutTests */,
+			);
+			name = GreenScoutTests;
+			packageProductDependencies = (
+			);
+			productName = GreenScoutTests;
+			productReference = 64D8BFE52E28C7EA006842DB /* GreenScoutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		64D8BFEE2E28C7EA006842DB /* GreenScoutUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64D8BFFF2E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScoutUITests" */;
+			buildPhases = (
+				64D8BFEB2E28C7EA006842DB /* Sources */,
+				64D8BFEC2E28C7EA006842DB /* Frameworks */,
+				64D8BFED2E28C7EA006842DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64D8BFF12E28C7EA006842DB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				64D8BFF22E28C7EA006842DB /* GreenScoutUITests */,
+			);
+			name = GreenScoutUITests;
+			packageProductDependencies = (
+			);
+			productName = GreenScoutUITests;
+			productReference = 64D8BFEF2E28C7EA006842DB /* GreenScoutUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64D8BFD02E28C7E9006842DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					64D8BFD72E28C7EA006842DB = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					64D8BFE42E28C7EA006842DB = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 64D8BFD72E28C7EA006842DB;
+					};
+					64D8BFEE2E28C7EA006842DB = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 64D8BFD72E28C7EA006842DB;
+					};
+				};
+			};
+			buildConfigurationList = 64D8BFD32E28C7E9006842DB /* Build configuration list for PBXProject "GreenScout" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 64D8BFCF2E28C7E9006842DB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 64D8BFD92E28C7EA006842DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64D8BFD72E28C7EA006842DB /* GreenScout */,
+				64D8BFE42E28C7EA006842DB /* GreenScoutTests */,
+				64D8BFEE2E28C7EA006842DB /* GreenScoutUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64D8BFD62E28C7EA006842DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFE32E28C7EA006842DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFED2E28C7EA006842DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64D8BFD42E28C7EA006842DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFE12E28C7EA006842DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64D8BFEB2E28C7EA006842DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		64D8BFE72E28C7EA006842DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64D8BFD72E28C7EA006842DB /* GreenScout */;
+			targetProxy = 64D8BFE62E28C7EA006842DB /* PBXContainerItemProxy */;
+		};
+		64D8BFF12E28C7EA006842DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64D8BFD72E28C7EA006842DB /* GreenScout */;
+			targetProxy = 64D8BFF02E28C7EA006842DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		64D8BFF72E28C7EA006842DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		64D8BFF82E28C7EA006842DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		64D8BFFA2E28C7EA006842DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRNT7DZ737;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GreenScout needs access to your camera to capture photos for green coverage analysis.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "GreenScout needs access to save analyzed images to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GreenScout needs access to your photo library to select images for analysis.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				sdf = sdf;
+			};
+			name = Debug;
+		};
+		64D8BFFB2E28C7EA006842DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRNT7DZ737;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GreenScout needs access to your camera to capture photos for green coverage analysis.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "GreenScout needs access to save analyzed images to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GreenScout needs access to your photo library to select images for analysis.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				sdf = sdf;
+			};
+			name = Release;
+		};
+		64D8BFFD2E28C7EA006842DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRNT7DZ737;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GreenScout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GreenScout";
+			};
+			name = Debug;
+		};
+		64D8BFFE2E28C7EA006842DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VRNT7DZ737;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GreenScout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GreenScout";
+			};
+			name = Release;
+		};
+		64D8C0002E28C7EA006842DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScoutUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GreenScout;
+			};
+			name = Debug;
+		};
+		64D8C0012E28C7EA006842DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldacres.GreenScoutUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GreenScout;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64D8BFD32E28C7E9006842DB /* Build configuration list for PBXProject "GreenScout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64D8BFF72E28C7EA006842DB /* Debug */,
+				64D8BFF82E28C7EA006842DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64D8BFF92E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64D8BFFA2E28C7EA006842DB /* Debug */,
+				64D8BFFB2E28C7EA006842DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64D8BFFC2E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64D8BFFD2E28C7EA006842DB /* Debug */,
+				64D8BFFE2E28C7EA006842DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64D8BFFF2E28C7EA006842DB /* Build configuration list for PBXNativeTarget "GreenScoutUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64D8C0002E28C7EA006842DB /* Debug */,
+				64D8C0012E28C7EA006842DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 64D8BFD02E28C7E9006842DB /* Project object */;
+}
