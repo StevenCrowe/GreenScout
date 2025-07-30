@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ContentView: View {
+    
     @StateObject private var viewModel = ImageAnalysisViewModel()
     @State private var showingImagePicker = false
     @State private var showingCamera = false
@@ -17,6 +18,8 @@ struct ContentView: View {
     @State private var showingRawImageAlert = false
     
     var body: some View {
+                  
+        
         if #available(iOS 16.0, *) {
             NavigationStack {
                 ContentScrollView(viewModel: viewModel, showingImagePicker: $showingImagePicker, showingCamera: $showingCamera, showingRawImageAlert: $showingRawImageAlert, progressOffset: $progressOffset)
@@ -291,7 +294,6 @@ struct ContentScrollView: View {
                     Spacer(minLength: 50)
             }
         }
-        .navigationBarHidden(true)
         .sheet(isPresented: $showingImagePicker) {
             PhotoPicker(image: $viewModel.selectedImage, 
                        onImageDataReceived: { imageData in

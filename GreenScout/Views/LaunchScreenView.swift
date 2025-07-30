@@ -13,7 +13,7 @@ struct LaunchScreenView: View {
     
     var body: some View {
         ZStack {
-            ContentView()
+           BottomNavigationView()
                 .opacity(isActive ? 1 : 0)
             
             ZStack {
