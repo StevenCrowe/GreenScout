@@ -64,11 +64,11 @@ struct CalculationResultView: View {
     private func colorForCoverage(_ percentage: Double) -> Color {
         switch percentage {
         case ..<30:
-            return .orange
+            return AppColors.warning
         case 30..<70:
-            return .yellow
+            return AppColors.warning
         default:
-            return .green
+            return AppColors.success
         }
     }
     
@@ -104,7 +104,7 @@ struct CalculationResultView: View {
         
         Field Details:
         • Size: \(String(format: "%.1f", result.fieldData.area)) \(result.fieldData.areaUnit.rawValue)
-        • Green Coverage: \(String(format: "%.1f", result.fieldData.greenCoveragePercent))%
+        • Green Coverage: \(String(format: "%.1f", result.fieldDataAppColors.successCoveragePercent))%
         • Crop Type: \(result.fieldData.cropType.rawValue)
         
         Chemical Requirements:
@@ -138,7 +138,7 @@ struct DetailRow: View {
     var body: some View {
         HStack {
             Text(label)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             Spacer()
             Text(value)
                 .fontWeight(.medium)
@@ -170,7 +170,7 @@ struct ChemicalRequirementsCard: View {
         VStack(alignment: .leading, spacing: 15) {
             Text("Chemical Requirements")
                 .font(.headline)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             HStack(spacing: 20) {
                 // Chemical Volume
@@ -193,14 +193,14 @@ struct ChemicalRequirementsCard: View {
                     value: result.waterVolume,
                     specifier: "%.0f",
                     unit: "L",
-                    color: .cyan
+                    color: AppColors.secondary
                 )
             }
             
             // Total Volume
             HStack {
                 Text("Total Spray Volume:")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.textSecondary)
                 Spacer()
                 Text("\(String(format: "%.0f", result.totalChemicalNeeded + result.waterVolume)) L")
                     .fontWeight(.semibold)
@@ -208,7 +208,7 @@ struct ChemicalRequirementsCard: View {
             .font(.callout)
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(12)
         .padding(.horizontal)
     }
@@ -244,7 +244,7 @@ struct ApplicationDetailsCard: View {
         VStack(alignment: .leading, spacing: 15) {
             Text("Application Details")
                 .font(.headline)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             VStack(spacing: 12) {
                 DetailRow(
@@ -254,13 +254,13 @@ struct ApplicationDetailsCard: View {
                 
                 DetailRow(
                     label: "Green Coverage",
-                    value: "\(String(format: "%.1f", result.fieldData.greenCoveragePercent))%",
-                    color: colorForCoverage(result.fieldData.greenCoveragePercent)
+                    value: "\(String(format: "%.1f", result.fieldDataAppColors.successCoveragePercent))%",
+                    color: colorForCoverage(result.fieldDataAppColors.successCoveragePercent)
                 )
                 
                 DetailRow(
                     label: "Density Level",
-                    value: DensityLevel.from(greenCoverage: result.fieldData.greenCoveragePercent).description
+                    value: DensityLevel.from(greenCoverage: result.fieldDataAppColors.successCoveragePercent).description
                 )
                 
                 DetailRow(
@@ -280,7 +280,7 @@ struct ApplicationDetailsCard: View {
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(12)
         .padding(.horizontal)
     }
@@ -288,11 +288,11 @@ struct ApplicationDetailsCard: View {
     private func colorForCoverage(_ percentage: Double) -> Color {
         switch percentage {
         case ..<30:
-            return .orange
+            return AppColors.warning
         case 30..<70:
-            return .yellow
+            return AppColors.warning
         default:
-            return .green
+            return AppColors.success
         }
     }
 }
@@ -305,14 +305,14 @@ struct MixingInstructionsCard: View {
         VStack(alignment: .leading, spacing: 15) {
             Text("Mixing Instructions")
                 .font(.headline)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             ForEach(mixingInstructions, id: \.step) { instruction in
                 MixingInstructionRow(instruction: instruction, isLast: instruction.step == mixingInstructions.count)
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(12)
         .padding(.horizontal)
     }
@@ -332,7 +332,7 @@ struct MixingInstructionRow: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .frame(width: 24, height: 24)
-                    .background(Circle().fill(Color.green))
+                    .background(Circle().fill(AppColors.success))
                 
                 // Instruction text
                 VStack(alignment: .leading, spacing: 4) {

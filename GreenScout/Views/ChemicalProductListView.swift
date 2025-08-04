@@ -26,11 +26,11 @@ struct ChemicalProductListView: View {
                 // Search bar
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                     TextField("Search chemicals...", text: $searchText)
                 }
                 .padding(8)
-                .background(Color(.systemGray6))
+                .background(AppColors.backgroundLight)
                 .cornerRadius(8)
                 .padding(.horizontal)
                 .padding(.top, 8)
@@ -61,10 +61,10 @@ struct ChemicalProductListView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "flask")
                             .font(.system(size: 60))
-                            .foregroundColor(.gray)
+                            .foregroundColor(AppColors.textSecondary)
                         Text("No chemicals found")
                             .font(.headline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         if store.chemicals.isEmpty {
                             Button("Add Sample Data") {
@@ -74,7 +74,7 @@ struct ChemicalProductListView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGroupedBackground))
+                    .background(AppColors.backgroundLight)
                 } else {
                     List {
                         ForEach(filteredChemicals) { chemical in
@@ -90,7 +90,7 @@ struct ChemicalProductListView: View {
                     .listStyle(PlainListStyle())
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .background(AppColors.backgroundLight)
             .navigationTitle("Chemical Products")
             .navigationBarItems(
                 trailing: Button(action: { showingAddSheet = true }) {
@@ -121,7 +121,7 @@ struct FilterPill: View {
                 .font(.subheadline)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 6)
-                .background(isSelected ? Color.blue : Color(.systemGray5))
+                .background(isSelected ? AppColors.secondary : AppColors.greyLine)
                 .foregroundColor(isSelected ? .white : .primary)
                 .cornerRadius(15)
         }
@@ -155,11 +155,11 @@ struct ChemicalProductListView_Selection: View {
                 // Search bar
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                     TextField("Search chemicals...", text: $searchText)
                 }
                 .padding(8)
-                .background(Color(.systemGray6))
+                .background(AppColors.backgroundLight)
                 .cornerRadius(8)
                 .padding(.horizontal)
                 .padding(.top, 8)
@@ -190,10 +190,10 @@ struct ChemicalProductListView_Selection: View {
                     VStack(spacing: 16) {
                         Image(systemName: "flask")
                             .font(.system(size: 60))
-                            .foregroundColor(.gray)
+                            .foregroundColor(AppColors.textSecondary)
                         Text("No chemicals found")
                             .font(.headline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         if store.chemicals.isEmpty {
                             Button("Add Sample Data") {
@@ -203,7 +203,7 @@ struct ChemicalProductListView_Selection: View {
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGroupedBackground))
+                    .background(AppColors.backgroundLight)
                 } else {
                     List {
                         ForEach(filteredChemicals) { chemical in
@@ -217,7 +217,7 @@ struct ChemicalProductListView_Selection: View {
                     .listStyle(PlainListStyle())
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .background(AppColors.backgroundLight)
             .navigationTitle("Select Chemical")
             .navigationBarItems(trailing: Button("Cancel") { dismiss() })
         }

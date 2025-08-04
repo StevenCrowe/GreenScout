@@ -42,7 +42,7 @@ extension ImageAnalysisViewModel {
         }
         
         return (
-            greenCoveragePercent: results.greenPercentage,
+            greenCoveragePercent: resultsAppColors.successPercentage,
             analysisDate: Date(),
             imageQuality: (score: score, isAcceptable: isAcceptable)
         )

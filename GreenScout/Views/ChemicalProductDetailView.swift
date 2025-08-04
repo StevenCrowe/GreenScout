@@ -26,7 +26,7 @@ struct ChemicalProductDetailView: View {
                             if chemical.restrictedUse {
                                 Label("Restricted Use", systemImage: "exclamationmark.triangle.fill")
                                     .font(.caption)
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(AppColors.warning)
                             }
                         }
                         
@@ -36,7 +36,7 @@ struct ChemicalProductDetailView: View {
                         
                         Text(chemical.manufacturer)
                             .font(.title3)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                     }
                     .padding(.horizontal)
                     
@@ -86,7 +86,7 @@ struct ChemicalProductDetailView: View {
                                         Spacer()
                                         Text("\(Int(1000 / chemical.maxApplicationRate)) - \(Int(1000 / chemical.minApplicationRate)) ha")
                                             .fontWeight(.medium)
-                                            .foregroundColor(.green)
+                                            .foregroundColor(AppColors.success)
                                     }
                                     .font(.caption)
                                 }
@@ -105,7 +105,7 @@ struct ChemicalProductDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: "calendar")
-                                        .foregroundColor(.orange)
+                                        .foregroundColor(AppColors.warning)
                                     Text("Withdrawal Period:")
                                     Spacer()
                                     Text("\(chemical.withdrawalPeriod) days")
@@ -115,7 +115,7 @@ struct ChemicalProductDetailView: View {
                                 if !chemical.compatibleWith.isEmpty {
                                     HStack {
                                         Image(systemName: "checkmark.circle")
-                                            .foregroundColor(.green)
+                                            .foregroundColor(AppColors.success)
                                         Text("Compatible Products:")
                                         Spacer()
                                         Text("\(chemical.compatibleWith.count)")
@@ -145,7 +145,7 @@ struct ChemicalProductDetailView: View {
                                         Spacer()
                                         Text("$\(cost, specifier: "%.2f")")
                                             .fontWeight(.semibold)
-                                            .foregroundColor(.green)
+                                            .foregroundColor(AppColors.success)
                                     }
                                     
                                     HStack {
@@ -176,7 +176,7 @@ struct ChemicalProductDetailView: View {
                             
                             Text("Always follow label directions. Consider weather conditions, crop stage, and pest pressure when selecting application rates.")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
                     .padding(.horizontal)

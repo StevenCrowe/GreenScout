@@ -15,7 +15,7 @@ struct TestIntegrationView: View {
                     .foregroundColor(.blue)
                     
                     Text("Chemicals loaded: \(store.chemicals.count)")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                 }
                 
                 Section("Test Components") {
@@ -29,7 +29,7 @@ struct TestIntegrationView: View {
                         testComplianceChecker()
                         showingTestResults = true
                     }
-                    .foregroundColor(.orange)
+                    .foregroundColor(AppColors.warning)
                 }
                 
                 if showingTestResults && !complianceChecker.warnings.isEmpty {

@@ -18,7 +18,8 @@ struct ContentView: View {
     @State private var showingRawImageAlert = false
     
     var body: some View {
-                  
+        
+  
         
         if #available(iOS 16.0, *) {
             NavigationStack {
@@ -42,22 +43,24 @@ struct ContentScrollView: View {
     @Binding var progressOffset: CGFloat
     
     var body: some View {
+        
+ 
         ScrollView {
             VStack(spacing: 20) {
                 // Header - Only show when no results
                     if viewModel.analysisResults == nil {
                         VStack(spacing: 8) {
-                            Image(systemName: "leaf.circle.fill")
-                                .font(.system(size: 60))
-                                .foregroundColor(.green)
+                           // Image(systemName: "leaf.circle.fill")
+                             //   .font(.system(size: 60))
+                               // .foregroundColor(AppColors.success)
                             
-                            Text("GreenScout")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
+                            //Text("GreenScout")
+                               // .font(.largeTitle)
+                                //.fontWeight(.bold)
                             
                             Text("Analyze green coverage in your fields")
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                         .padding(.top)
                     }
@@ -82,24 +85,24 @@ struct ContentScrollView: View {
                                 VStack(spacing: 12) {
                                     Image(systemName: "photo.on.rectangle.angled")
                                         .font(.system(size: 50))
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppColors.textSecondary)
                                     
                                     Text("Tap to select an image")
                                         .font(.headline)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppColors.textSecondary)
                                     
                                     Text("Choose from library or camera")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppColors.textSecondary)
                                     
                                     Text("For best results, use high-quality images")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppColors.textSecondary)
                                         .italic()
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 200)
-                                .background(Color.gray.opacity(0.1))
+                                .background(AppColors.textSecondary.opacity(0.1))
                                 .cornerRadius(12)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
@@ -132,7 +135,7 @@ struct ContentScrollView: View {
                                 
                                 Text(warning)
                                     .font(.caption)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(AppColors.textSecondary)
                                     .multilineTextAlignment(.leading)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -155,7 +158,7 @@ struct ContentScrollView: View {
                                     .foregroundColor(.white)
                                     .padding(.horizontal, 20)
                                     .padding(.vertical, 12)
-                                    .background(Color.blue)
+                                    .background(AppColors.secondary)
                                     .cornerRadius(8)
                                 }
                                 .padding(.horizontal)
@@ -169,7 +172,7 @@ struct ContentScrollView: View {
                                 VStack(spacing: 16) {
                                     HStack(spacing: 12) {
                                         ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .green))
+                                            .progressViewStyle(CircularProgressViewStyle(tint: AppColors.success))
                                             .scaleEffect(1.2)
                                         
                                         Text("Analyzing image...")
@@ -182,13 +185,13 @@ struct ContentScrollView: View {
                                         ZStack(alignment: .leading) {
                                             // Background track
                                             RoundedRectangle(cornerRadius: 6)
-                                                .fill(Color.gray.opacity(0.2))
+                                                .fill(AppColors.textSecondary.opacity(0.2))
                                                 .frame(height: 12)
                                             
                                             // Animated progress indicator
                                             RoundedRectangle(cornerRadius: 6)
                                                 .fill(LinearGradient(
-                                                    gradient: Gradient(colors: [Color.green, Color.green.opacity(0.7), Color.green]),
+                                                    gradient: Gradient(colors: [AppColors.success, AppColors.success.opacity(0.7), AppColors.success]),
                                                     startPoint: .leading,
                                                     endPoint: .trailing
                                                 ))
@@ -203,7 +206,7 @@ struct ContentScrollView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 6))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 6)
-                                                .stroke(Color.green.opacity(0.3), lineWidth: 1)
+                                                .stroke(AppColors.success.opacity(0.3), lineWidth: 1)
                                         )
                                     }
                                     .frame(height: 12)
@@ -217,16 +220,16 @@ struct ContentScrollView: View {
                                     
                                     Text("Detecting green vegetation...")
                                         .font(.subheadline)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppColors.textSecondary)
                                         .padding(.top, 4)
                                 }
                                 .padding(24)
                                 .background(
                                     RoundedRectangle(cornerRadius: 16)
-                                        .fill(Color.green.opacity(0.05))
+                                        .fill(AppColors.success.opacity(0.05))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 16)
-                                                .stroke(Color.green.opacity(0.2), lineWidth: 1)
+                                                .stroke(AppColors.success.opacity(0.2), lineWidth: 1)
                                         )
                                 )
                                 .padding(.horizontal)
@@ -260,7 +263,7 @@ struct ContentScrollView: View {
                                 
                                 Text(warning)
                                     .font(.caption)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(AppColors.textSecondary)
                                     .multilineTextAlignment(.leading)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -328,14 +331,15 @@ struct ContentScrollView: View {
     
     private func getWarningColor(for warning: String) -> Color {
         if warning.contains("too low") {
-            return .red
+            return AppColors.error
         } else if warning.contains("Warning:") {
-            return .orange
+            return AppColors.warning
         } else {
             return .blue
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

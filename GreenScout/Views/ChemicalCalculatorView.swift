@@ -63,14 +63,14 @@ struct ChemicalCalculatorView: View {
                 HStack {
                     Text("Green Coverage")
                     Spacer()
-                    Text(String(format: "%.1f%%", fieldData.greenCoveragePercent))
-                        .foregroundColor(.green)
+                    Text(String(format: "%.1f%%", fieldDataAppColors.successCoveragePercent))
+                        .foregroundColor(AppColors.success)
                 }
                 .font(.subheadline)
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(10)
     }
     
@@ -87,17 +87,17 @@ struct ChemicalCalculatorView: View {
                         if let chemical = selectedChemical {
                             Text("\(chemical.activeIngredient) - " + String(format: "%.1f%%", chemical.concentration))
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                 }
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(10)
     }
     
@@ -119,11 +119,11 @@ struct ChemicalCalculatorView: View {
                     HStack {
                         Text("Recommended")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         Spacer()
                         Text(String(format: "%.1f - %.1f L/ha", chemical.minApplicationRate, chemical.maxApplicationRate))
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                     }
                 }
                 
@@ -137,7 +137,7 @@ struct ChemicalCalculatorView: View {
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(AppColors.backgroundLight)
         .cornerRadius(10)
     }
     
@@ -146,7 +146,7 @@ struct ChemicalCalculatorView: View {
             Text("Calculate Requirements")
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.blue)
+                .background(AppColors.secondary)
                 .foregroundColor(.white)
                 .cornerRadius(10)
         }
@@ -174,12 +174,12 @@ struct ChemicalCalculatorView: View {
                 if let cost = selectedChemical?.costPerLiter {
                     Divider()
                     resultRow(label: "Total Chemical Cost", value: String(format: "$%.2f", result.chemicalVolume * cost))
-                        .foregroundColor(.green)
+                        .foregroundColor(AppColors.success)
                 }
             }
         }
         .padding()
-        .background(Color.green.opacity(0.1))
+        .background(AppColors.success.opacity(0.1))
         .cornerRadius(10)
     }
     
@@ -198,7 +198,7 @@ struct ChemicalCalculatorView: View {
         guard let chemical = selectedChemical else { return }
         
         // Create field data for calculation
-        let greenCoverage = imageAnalysis.prepareForChemicalCalculation()?.greenCoveragePercent ?? 50.0
+        let greenCoverage = imageAnalysis.prepareForChemicalCalculation()?AppColors.successCoveragePercent ?? 50.0
         let fieldData = FieldData(
             area: fieldArea,
             areaUnit: .hectares,

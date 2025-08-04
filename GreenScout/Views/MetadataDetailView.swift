@@ -33,7 +33,7 @@ struct MetadataDetailView: View {
                             }
                         } else {
                             Text("No location data available")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
 
@@ -57,7 +57,7 @@ struct MetadataDetailView: View {
                             Text("Device: \(model)")
                         } else {
                             Text("No device information")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                         
                         if let lens = metadata.lensModel {
@@ -77,7 +77,7 @@ struct MetadataDetailView: View {
                     }
 
                     Section(header: Text("Analysis")) {
-                        Text("Green Coverage: \(String(format: "%.1f%%", metadata.greenCoveragePercentage ?? 0.0))")
+                        Text("Green Coverage: \(String(format: "%.1f%%", metadataAppColors.successCoveragePercentage ?? 0.0))")
                     }
 
                 } else {

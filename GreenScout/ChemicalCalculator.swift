@@ -45,7 +45,7 @@ class ChemicalCalculator {
         let areaInHectares = fieldData.area * fieldData.areaUnit.toHectaresMultiplier
         
         // Determine density level based on green coverage
-        let densityLevel = DensityLevel.from(greenCoverage: fieldData.greenCoveragePercent)
+        let densityLevel = DensityLevel.from(greenCoverage: fieldDataAppColors.successCoveragePercent)
         
         // Base calculation
         let baseRate = fieldData.cropType.baseApplicationRate

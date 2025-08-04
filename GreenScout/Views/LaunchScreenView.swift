@@ -12,13 +12,15 @@ struct LaunchScreenView: View {
     @State private var opacity = 1.0
     
     var body: some View {
+        
+        
         ZStack {
            BottomNavigationView()
                 .opacity(isActive ? 1 : 0)
             
             ZStack {
                 // Background color to match splash screen edges
-                Color.green // You can adjust this to match your splash screen's edge color
+                AppColors.success // You can adjust this to match your splash screen's edge color
                     .ignoresSafeArea()
                 
                 GeometryReader { geometry in

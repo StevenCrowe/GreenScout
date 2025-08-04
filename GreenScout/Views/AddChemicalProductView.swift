@@ -113,7 +113,7 @@ struct AddChemicalProductView: View {
                             Text("Tank coverage (1000L): \(Int(1000 / maxApplicationRate)) - \(Int(1000 / minApplicationRate)) ha")
                                 .font(.caption)
                         }
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                     }
                 }
             }

@@ -111,7 +111,7 @@ struct ImageComparisonView: View {
                             // Original label
                             HStack(spacing: 6) {
                                 Circle()
-                                    .fill(Color.gray)
+                                    .fill(AppColors.textSecondary)
                                     .frame(width: 10, height: 10)
                                 Text("Original")
                                     .font(.caption)
@@ -125,7 +125,7 @@ struct ImageComparisonView: View {
                             // Analyzed label
                             HStack(spacing: 6) {
                                 Circle()
-                                    .fill(Color.green)
+                                    .fill(AppColors.success)
                                     .frame(width: 10, height: 10)
                                 Text("Analyzed")
                                     .font(.caption)

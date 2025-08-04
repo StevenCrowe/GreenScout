@@ -8,7 +8,7 @@ struct SafetyWarningsView: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.orange)
+                        .foregroundColor(AppColors.warning)
                     Text("Safety Checks")
                         .font(.headline)
                 }
@@ -30,12 +30,12 @@ struct SafetyWarningsView: View {
                 if warnings.contains(where: { $0.severity == .critical }) {
                     Text("⚠️ Critical warnings must be addressed before proceeding")
                         .font(.caption)
-                        .foregroundColor(.red)
+                        .foregroundColor(AppColors.error)
                         .fontWeight(.semibold)
                 }
             }
             .padding()
-            .background(Color.orange.opacity(0.1))
+            .background(ColorAppColors.warning.opacity(0.1))
             .cornerRadius(10)
         }
     }
@@ -58,7 +58,7 @@ struct CompactSafetyWarningsView: View {
                             .foregroundColor(.primary)
                         Spacer()
                         Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                             .font(.caption)
                     }
                 }
@@ -75,7 +75,7 @@ struct CompactSafetyWarningsView: View {
                                 
                                 Text(warning.message)
                                     .font(.caption2)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(AppColors.textSecondary)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
@@ -91,11 +91,11 @@ struct CompactSafetyWarningsView: View {
     
     var warningColor: Color {
         if warnings.contains(where: { $0.severity == .critical }) {
-            return .red
+            return AppColors.error
         } else if warnings.contains(where: { $0.severity == .warning }) {
-            return .orange
+            return AppColors.warning
         } else {
-            return .yellow
+            return AppColors.warning
         }
     }
 }

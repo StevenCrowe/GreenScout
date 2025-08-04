@@ -29,9 +29,22 @@
 		64D8BFEF2E28C7EA006842DB /* GreenScoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreenScoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		646854132E3C55920052DE40 /* Exceptions for "GreenScout" folder in "GreenScout" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 64D8BFD72E28C7EA006842DB /* GreenScout */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		64D8BFDA2E28C7EA006842DB /* GreenScout */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				646854132E3C55920052DE40 /* Exceptions for "GreenScout" folder in "GreenScout" target */,
+			);
 			path = GreenScout;
 			sourceTree = "<group>";
 		};
@@ -397,16 +410,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VRNT7DZ737;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "GreenScout needs access to your camera to capture photos for green coverage analysis.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "GreenScout needs access to save analyzed images to your photo library.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GreenScout needs access to your photo library to select images for analysis.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = GreenScout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,16 +439,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VRNT7DZ737;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "GreenScout needs access to your camera to capture photos for green coverage analysis.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "GreenScout needs access to save analyzed images to your photo library.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GreenScout needs access to your photo library to select images for analysis.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = GreenScout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

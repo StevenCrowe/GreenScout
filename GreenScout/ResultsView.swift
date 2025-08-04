@@ -28,15 +28,15 @@ struct ResultsView: View {
                 HStack {
                     Image(systemName: "leaf.fill")
                         .font(.largeTitle)
-                        .foregroundColor(.green)
+                        .foregroundColor(AppColors.success)
                     
                     VStack(alignment: .leading) {
                         Text("Green Coverage")
                             .font(.headline)
-                        Text(String(format: "%.1f%%", results.greenPercentage))
+                        Text(String(format: "%.1f%%", resultsAppColors.successPercentage))
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.green)
+                            .foregroundColor(AppColors.success)
                     }
                     
                     Spacer()
@@ -46,19 +46,19 @@ struct ResultsView: View {
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.2))
+                            .fill(AppColors.textSecondary.opacity(0.2))
                             .frame(height: 20)
                         
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.green)
-                            .frame(width: geometry.size.width * CGFloat(results.greenPercentage / 100), height: 20)
-                            .animation(.easeInOut(duration: 0.5), value: results.greenPercentage)
+                            .fill(AppColors.success)
+                            .frame(width: geometry.size.width * CGFloat(resultsAppColors.successPercentage / 100), height: 20)
+                            .animation(.easeInOut(duration: 0.5), value: resultsAppColors.successPercentage)
                     }
                 }
                 .frame(height: 20)
             }
             .padding()
-            .background(Color.green.opacity(0.1))
+            .background(AppColors.success.opacity(0.1))
             .cornerRadius(12)
             
             // Images Section - Original and Segmented
@@ -68,7 +68,7 @@ struct ResultsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Original")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         Image(uiImage: original)
                             .resizable()
@@ -82,7 +82,7 @@ struct ResultsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Segmented View")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         Image(uiImage: processed)
                             .resizable()
@@ -106,7 +106,7 @@ struct ResultsView: View {
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
-                    .tint(.green)
+                    .tint(AppColors.success)
                 }
             }
             
@@ -121,8 +121,8 @@ struct ResultsView: View {
                 StatCard(
                     icon: "checkmark.square.fill",
                     title: "Green Pixels",
-                    value: formatNumber(results.greenPixels),
-                    color: .green
+                    value: formatNumber(resultsAppColors.successPixels),
+                    color: AppColors.success
                 )
             }
             
@@ -139,7 +139,7 @@ struct ResultsView: View {
                     icon: "waveform.path.ecg",
                     title: "Accuracy",
                     value: "High",
-                    color: .orange
+                    color: AppColors.warning
                 )
             }
             
@@ -223,7 +223,7 @@ struct ResultsView: View {
         guard let processedImage = processedImage else { return }
         
         // Create image with percentage overlay
-        let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: results.greenPercentage)
+        let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: resultsAppColors.successPercentage)
         
         // Request permission first
         PHPhotoLibrary.requestAuthorization { status in
@@ -231,7 +231,7 @@ struct ResultsView: View {
                 switch status {
                 case .authorized, .limited:
                     // Save the image with custom filename
-                    self.saveImageWithMetadata(imageWithOverlay, percentage: self.results.greenPercentage)
+                    self.saveImageWithMetadata(imageWithOverlay, percentage: self.resultsAppColors.successPercentage)
                 case .denied, .restricted:
                     self.saveAlertMessage = "Please enable photo library access in Settings to save images."
                     self.showingSaveAlert = true
@@ -319,7 +319,7 @@ struct ResultsView: View {
         
         // Add the segmented image with overlay
         if let processedImage = processedImage {
-            let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: results.greenPercentage)
+            let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: resultsAppColors.successPercentage)
             items.append(imageWithOverlay)
         }
         
@@ -333,9 +333,9 @@ struct ResultsView: View {
         Date: \(dateFormatter.string(from: Date()))
         
         📊 ANALYSIS RESULTS
-        • Green Coverage: \(String(format: "%.1f%%", results.greenPercentage))
+        • Green Coverage: \(String(format: "%.1f%%", resultsAppColors.successPercentage))
         • Total Pixels Analyzed: \(formatNumber(results.totalPixels))
-        • Green Pixels Detected: \(formatNumber(results.greenPixels))
+        • Green Pixels Detected: \(formatNumber(resultsAppColors.successPixels))
         • Processing Time: \(String(format: "%.2f", results.processingTime)) seconds
         • Detection Accuracy: High
         
@@ -369,7 +369,7 @@ struct StatCard: View {
             
             Text(title)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             Text(value)
                 .font(.headline)
@@ -377,7 +377,7 @@ struct StatCard: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(AppColors.textSecondary.opacity(0.1))
         .cornerRadius(8)
     }
 }
@@ -421,19 +421,19 @@ struct InsightsCard: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "lightbulb.fill")
-                        .foregroundColor(.yellow)
+                        .foregroundColor(AppColors.warning)
                     Text("Agricultural Insight")
                         .font(.headline)
                 }
                 
                 Text(recommendation)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            .background(Color.yellow.opacity(0.1))
+            .background(ColorAppColors.warning.opacity(0.1))
             .cornerRadius(8)
             
             // Chemical Mixing Recommendation
@@ -452,11 +452,11 @@ struct InsightsCard: View {
                 
                 Text("Always follow manufacturer guidelines and local regulations")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.textSecondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            .background(Color.blue.opacity(0.1))
+            .background(AppColors.secondary.opacity(0.1))
             .cornerRadius(8)
         }
     }

@@ -64,20 +64,20 @@ struct ComplianceDashboardView: View {
                         if let chemical = selectedChemical {
                             Text("\(chemical.activeIngredient) - " + String(format: "%.1f%%", chemical.concentration))
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                 }
                 .padding()
-                .background(Color(.systemGray6))
+                .background(AppColors.backgroundLight)
                 .cornerRadius(10)
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(AppColors.backgroundLight)
         .cornerRadius(15)
         .shadow(radius: 2)
     }
@@ -103,17 +103,17 @@ struct ComplianceDashboardView: View {
                     HStack {
                         Text("Recommended Range")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         Spacer()
                         Text(String(format: "%.1f - %.1f L/ha", chemical.minApplicationRate, chemical.maxApplicationRate))
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                     }
                 }
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(AppColors.backgroundLight)
         .cornerRadius(15)
         .shadow(radius: 2)
     }
@@ -139,7 +139,7 @@ struct ComplianceDashboardView: View {
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(AppColors.backgroundLight)
         .cornerRadius(15)
         .shadow(radius: 2)
     }
@@ -150,8 +150,8 @@ struct ComplianceDashboardView: View {
                 Image(systemName: complianceChecker.warnings.isEmpty ? "checkmark.circle.fill" : 
                       (complianceChecker.hasBlockingWarnings ? "xmark.circle.fill" : "exclamationmark.circle.fill"))
                     .font(.largeTitle)
-                    .foregroundColor(complianceChecker.warnings.isEmpty ? .green : 
-                                   (complianceChecker.hasBlockingWarnings ? .red : .orange))
+                    .foregroundColor(complianceChecker.warnings.isEmpty ? AppColors.success : 
+                                   (complianceChecker.hasBlockingWarnings ? AppColors.error : AppColors.warning))
                 
                 VStack(alignment: .leading) {
                     Text(complianceChecker.warnings.isEmpty ? "All Clear" : 
@@ -159,7 +159,7 @@ struct ComplianceDashboardView: View {
                         .font(.headline)
                     Text(complianceStatusMessage)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.textSecondary)
                 }
                 Spacer()
             }
@@ -169,14 +169,14 @@ struct ComplianceDashboardView: View {
                     Text("Proceed to Application")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(complianceChecker.warnings.isEmpty ? Color.green : Color.orange)
+                        .background(complianceChecker.warnings.isEmpty ? AppColors.success : ColorAppColors.warning)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(AppColors.backgroundLight)
         .cornerRadius(15)
         .shadow(radius: 2)
     }
@@ -187,7 +187,7 @@ struct ComplianceDashboardView: View {
                 .foregroundColor(.blue)
                 .frame(width: 25)
             Text(label)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             Spacer()
             Text(value)
                 .fontWeight(.medium)

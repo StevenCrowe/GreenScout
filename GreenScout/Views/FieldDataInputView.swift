@@ -51,7 +51,7 @@ struct FieldDataInputView: View {
     
     private var greenCoveragePercent: Double? {
         // Use override if set, otherwise use prefilled value, otherwise use analyzed value
-        greenCoverageOverride ?? prefilledGreenCoverage ?? imageViewModel.analysisResults?.greenPercentage
+        greenCoverageOverride ?? prefilledGreenCoverage ?? imageViewModel.analysisResults?AppColors.successPercentage
     }
     
     var body: some View {
@@ -88,7 +88,7 @@ struct FieldDataInputView: View {
                         TextField("Concentration", text: $chemicalConcentration)
                             .keyboardType(.decimalPad)
                         Text("%")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                     }
                 }
                 
@@ -98,22 +98,22 @@ struct FieldDataInputView: View {
                             Text("Tank Size")
                             Spacer()
                             Text("\(Int(tankSize)) L")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                                 .font(.callout)
                                 .monospacedDigit()
                         }
                         
                         Slider(value: $tankSize, in: 300...10000, step: 100)
-                            .accentColor(.green)
+                            .accentColor(AppColors.success)
                         
                         HStack {
                             Text("300 L")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                             Spacer()
                             Text("10,000 L")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
                     .padding(.vertical, 4)
@@ -123,22 +123,22 @@ struct FieldDataInputView: View {
                             Text("Spray Volume")
                             Spacer()
                             Text("\(Int(sprayVolume)) L/ha")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                                 .font(.callout)
                                 .monospacedDigit()
                         }
                         
                         Slider(value: $sprayVolume, in: 20...500, step: 10)
-                            .accentColor(.green)
+                            .accentColor(AppColors.success)
                         
                         HStack {
                             Text("20 L/ha")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                             Spacer()
                             Text("500 L/ha")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                         }
                     }
                     .padding(.vertical, 4)
@@ -148,12 +148,12 @@ struct FieldDataInputView: View {
                     if let greenPercent = greenCoveragePercent {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.green)
+                                .foregroundColor(AppColors.success)
                             Text("Coverage: \(greenPercent, specifier: "%.1f")%")
                                 .foregroundColor(.primary)
                             Spacer()
                             Text(DensityLevel.from(greenCoverage: greenPercent).description)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppColors.textSecondary)
                                 .font(.caption)
                         }
                         
@@ -169,7 +169,7 @@ struct FieldDataInputView: View {
                         
                         Text("Analyze an image to determine green coverage percentage")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                     }
                 }
                 

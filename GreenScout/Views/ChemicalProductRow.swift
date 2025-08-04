@@ -12,17 +12,17 @@ struct ChemicalProductRow: View {
                 Spacer()
                 if chemical.restrictedUse {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.orange)
+                        .foregroundColor(AppColors.warning)
                 }
             }
             
             Text("\(chemical.activeIngredient) - \(chemical.concentration, specifier: "%.1f")%")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             Text(chemical.manufacturer)
                 .font(.caption2)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             HStack {
                 Text("Rate: \(chemical.minApplicationRate, specifier: "%.1f")-\(chemical.maxApplicationRate, specifier: "%.1f") L/ha")
@@ -31,13 +31,13 @@ struct ChemicalProductRow: View {
                 if let cost = chemical.costPerLiter {
                     Text("$\(cost, specifier: "%.2f")/L")
                         .font(.caption2)
-                        .foregroundColor(.green)
+                        .foregroundColor(AppColors.success)
                 }
             }
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 12)
-        .background(Color(.systemBackground))
+        .background(AppColors.backgroundLight)
         .contentShape(Rectangle())
         .onTapGesture {
             onSelect()

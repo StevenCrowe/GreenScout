@@ -51,10 +51,10 @@ struct SafetyWarningListView: View {
                 if complianceChecker.hasBlockingWarnings {
                     HStack {
                         Image(systemName: "hand.raised.fill")
-                            .foregroundColor(.red)
+                            .foregroundColor(AppColors.error)
                         Text("Critical warnings must be addressed before proceeding")
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundColor(AppColors.error)
                     }
                     .padding(.horizontal)
                 }
