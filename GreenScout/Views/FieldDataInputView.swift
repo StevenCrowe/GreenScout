@@ -51,7 +51,7 @@ struct FieldDataInputView: View {
     
     private var greenCoveragePercent: Double? {
         // Use override if set, otherwise use prefilled value, otherwise use analyzed value
-        greenCoverageOverride ?? prefilledGreenCoverage ?? imageViewModel.analysisResults?AppColors.successPercentage
+        greenCoverageOverride ?? prefilledGreenCoverage ?? imageViewModel.analysisResults?.greenPercentage
     }
     
     var body: some View {
@@ -104,7 +104,7 @@ struct FieldDataInputView: View {
                         }
                         
                         Slider(value: $tankSize, in: 300...10000, step: 100)
-                            .accentColor(AppColors.success)
+                            .tint(AppColors.success)
                         
                         HStack {
                             Text("300 L")
@@ -129,7 +129,7 @@ struct FieldDataInputView: View {
                         }
                         
                         Slider(value: $sprayVolume, in: 20...500, step: 10)
-                            .accentColor(AppColors.success)
+                            .tint(AppColors.success)
                         
                         HStack {
                             Text("20 L/ha")

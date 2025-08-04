@@ -77,7 +77,7 @@ struct MetadataDetailView: View {
                     }
 
                     Section(header: Text("Analysis")) {
-                        Text("Green Coverage: \(String(format: "%.1f%%", metadataAppColors.successCoveragePercentage ?? 0.0))")
+                        Text("Green Coverage: \(String(format: "%.1f%%", metadata.greenCoveragePercentage ?? 0.0))")
                     }
 
                 } else {

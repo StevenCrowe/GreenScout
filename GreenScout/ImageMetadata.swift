@@ -211,7 +211,7 @@ extension ImageMetadata {
         self.fieldName = nil
         self.cropType = nil
         self.analysisDate = analysisDate
-        selfAppColors.successCoveragePercentage = greenCoveragePercentage
+        self.greenCoveragePercentage = greenCoveragePercentage
     }
 }
 

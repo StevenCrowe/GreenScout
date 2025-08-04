@@ -43,8 +43,8 @@ struct ImageComparisonView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Black background
-                Color.black
+                // Dark background for comparison view
+                AppColors.backgroundDark
                     .ignoresSafeArea()
                 
                 // Container for images with proper boundary tracking
@@ -90,10 +90,10 @@ struct ImageComparisonView: View {
                             if actualImageFrame.width > 0 {
                                 // Vertical divider line
                                 Rectangle()
-                                    .fill(Color.white)
+                                    .fill(AppColors.backgroundLight)
                                     .frame(width: 2, height: actualImageFrame.height)
                                     .opacity(isDragging ? 1.0 : 0.6)
-                                    .shadow(color: .black.opacity(0.5), radius: 2)
+                                    .shadow(color: AppColors.backgroundDark.opacity(0.5), radius: 2)
                                     .animation(.easeInOut(duration: 0.2), value: isDragging)
                                     .position(x: actualImageFrame.minX + actualImageFrame.width * sliderPosition, y: actualImageFrame.midY)
                             }
@@ -119,7 +119,7 @@ struct ImageComparisonView: View {
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color.black.opacity(0.6))
+                            .background(AppColors.backgroundDark.opacity(0.6))
                             .cornerRadius(20)
                             
                             // Analyzed label
@@ -133,10 +133,10 @@ struct ImageComparisonView: View {
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color.black.opacity(0.6))
+                            .background(AppColors.backgroundDark.opacity(0.6))
                             .cornerRadius(20)
                         }
-                        .foregroundColor(.white)
+                        .foregroundColor(AppColors.backgroundLight)
                         .opacity(isDragging ? 0 : 1)
                         .animation(.easeOut(duration: 0.3), value: isDragging)
                         
@@ -155,9 +155,9 @@ struct ImageComparisonView: View {
                             }) {
                                 Text(String(format: "%.1f×", currentScale * gestureScale))
                                     .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(AppColors.backgroundLight)
                                     .frame(width: 44, height: 36)
-                                    .background(Capsule().fill(Color.black.opacity(0.6)))
+                                    .background(Capsule().fill(AppColors.backgroundDark.opacity(0.6)))
                             }
                             .opacity(currentScale > 1 ? 1 : 0.5)
                             .disabled(currentScale == 1)
@@ -170,8 +170,8 @@ struct ImageComparisonView: View {
                             }) {
                                 Image(systemName: "xmark.circle.fill")
                                     .font(.title)
-                                    .foregroundColor(.white)
-                                    .background(Circle().fill(Color.black.opacity(0.5)))
+                                    .foregroundColor(AppColors.backgroundLight)
+                                    .background(Circle().fill(AppColors.backgroundDark.opacity(0.5)))
                             }
                             .accessibilityLabel("Close")
                             .accessibilityHint("Closes the image comparison view")
@@ -186,10 +186,10 @@ struct ImageComparisonView: View {
                     // Instructions at bottom
                     Text(currentScale > 1 ? "Drag slider to compare • Pan to explore • Pinch to zoom" : "Drag the slider to compare images")
                         .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
+                        .foregroundColor(AppColors.backgroundLight.opacity(0.8))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
-                        .background(Color.black.opacity(0.6))
+                        .background(AppColors.backgroundDark.opacity(0.6))
                         .cornerRadius(20)
                         .padding(.bottom, 30)
                         .opacity((isDragging || isPanning || gestureScale != 1.0) ? 0 : 1)
@@ -212,7 +212,6 @@ struct ImageComparisonView: View {
             .accessibilityHint("Double-tap to reset zoom and position")
         }
         .ignoresSafeArea(.container, edges: [.bottom, .horizontal])
-        .preferredColorScheme(.dark)
     }
     
     // Define gestures

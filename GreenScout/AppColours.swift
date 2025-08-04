@@ -110,6 +110,10 @@ enum RajdhaniWeight: String {
     case bold = "Rajdhani-Bold"
 }
 
+// MARK: - UIColor Extension for SwiftUI Color Conversion
+// Note: This extension is not needed since iOS 14+ already provides UIColor(_ color: Color)
+// We'll use the built-in UIColor initializer directly
+
 // Font testing function
 extension AppFonts {
     static func printAvailableFonts() {

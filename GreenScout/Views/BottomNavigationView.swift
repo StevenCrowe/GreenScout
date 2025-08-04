@@ -76,16 +76,16 @@ struct BottomNavigationView: View {
                         let customFont = AppFonts.font(name: AppFonts.tabBarFont, size: 12, fallback: .semibold)
                         
                         // Customize unselected (normal) tab items
-                        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.black
+                        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(AppColors.textPrimary)
                         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-                            .foregroundColor: UIColor.black,
+                            .foregroundColor: UIColor(AppColors.textPrimary),
                             .font: customFont
                         ]
                         
                         // Customize selected tab items
-                        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(AppColorsAppColors.successGoldacres)
+                        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(AppColors.greenGoldacres)
                         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-                            .foregroundColor: UIColor(AppColorsAppColors.successGoldacres),
+                            .foregroundColor: UIColor(AppColors.greenGoldacres),
                             .font: customFont
                             
                         ]

@@ -169,7 +169,7 @@ struct ComplianceDashboardView: View {
                     Text("Proceed to Application")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(complianceChecker.warnings.isEmpty ? AppColors.success : ColorAppColors.warning)
+                    .background(complianceChecker.warnings.isEmpty ? AppColors.success : AppColors.warning)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -184,7 +184,7 @@ struct ComplianceDashboardView: View {
     func weatherRow(icon: String, label: String, value: String) -> some View {
         HStack {
             Image(systemName: icon)
-                .foregroundColor(.blue)
+                .foregroundColor(AppColors.secondary)
                 .frame(width: 25)
             Text(label)
                 .foregroundColor(AppColors.textSecondary)

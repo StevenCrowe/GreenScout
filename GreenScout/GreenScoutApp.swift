@@ -12,6 +12,7 @@ struct GreenScoutApp: App {
     var body: some Scene {
         WindowGroup {
             LaunchScreenView()
+                .preferredColorScheme(.light)
         }
     }
 }

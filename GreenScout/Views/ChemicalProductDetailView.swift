@@ -17,8 +17,8 @@ struct ChemicalProductDetailView: View {
                                 .fontWeight(.semibold)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 4)
-                                .background(Color.accentColor.opacity(0.2))
-                                .foregroundColor(.accentColor)
+                                .background(AppColors.accent.opacity(0.2))
+                                .foregroundColor(AppColors.accent)
                                 .cornerRadius(8)
                             
                             Spacer()
@@ -53,7 +53,7 @@ struct ChemicalProductDetailView: View {
                                 Text("\(chemical.concentration, specifier: "%.1f")%")
                                     .font(.body)
                                     .fontWeight(.semibold)
-                                    .foregroundColor(.accentColor)
+                                    .foregroundColor(AppColors.accent)
                             }
                         }
                     }
@@ -122,7 +122,7 @@ struct ChemicalProductDetailView: View {
                                             .fontWeight(.medium)
                                         Button(action: { showingCompatibilityInfo = true }) {
                                             Image(systemName: "info.circle")
-                                                .foregroundColor(.accentColor)
+                                                .foregroundColor(AppColors.accent)
                                         }
                                     }
                                 }

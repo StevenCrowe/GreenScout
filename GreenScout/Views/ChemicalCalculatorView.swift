@@ -63,7 +63,7 @@ struct ChemicalCalculatorView: View {
                 HStack {
                     Text("Green Coverage")
                     Spacer()
-                    Text(String(format: "%.1f%%", fieldDataAppColors.successCoveragePercent))
+                    Text(String(format: "%.1f%%", fieldData.greenCoveragePercent))
                         .foregroundColor(AppColors.success)
                 }
                 .font(.subheadline)
@@ -198,7 +198,8 @@ struct ChemicalCalculatorView: View {
         guard let chemical = selectedChemical else { return }
         
         // Create field data for calculation
-        let greenCoverage = imageAnalysis.prepareForChemicalCalculation()?AppColors.successCoveragePercent ?? 50.0
+        let preparedData = imageAnalysis.prepareForChemicalCalculation()
+        let greenCoverage = preparedData?.greenCoveragePercent ?? 50.0
         let fieldData = FieldData(
             area: fieldArea,
             areaUnit: .hectares,

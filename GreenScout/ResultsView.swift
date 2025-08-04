@@ -33,7 +33,7 @@ struct ResultsView: View {
                     VStack(alignment: .leading) {
                         Text("Green Coverage")
                             .font(.headline)
-                        Text(String(format: "%.1f%%", resultsAppColors.successPercentage))
+                        Text(String(format: "%.1f%%", results.greenPercentage))
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(AppColors.success)
@@ -51,8 +51,8 @@ struct ResultsView: View {
                         
                         RoundedRectangle(cornerRadius: 8)
                             .fill(AppColors.success)
-                            .frame(width: geometry.size.width * CGFloat(resultsAppColors.successPercentage / 100), height: 20)
-                            .animation(.easeInOut(duration: 0.5), value: resultsAppColors.successPercentage)
+                            .frame(width: geometry.size.width * CGFloat(results.greenPercentage / 100), height: 20)
+                            .animation(.easeInOut(duration: 0.5), value: results.greenPercentage)
                     }
                 }
                 .frame(height: 20)
@@ -88,7 +88,7 @@ struct ResultsView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 200)
-                            .background(Color.black)
+                            .background(AppColors.backgroundDark)
                             .cornerRadius(8)
                             .shadow(radius: 2)
                     }
@@ -121,7 +121,7 @@ struct ResultsView: View {
                 StatCard(
                     icon: "checkmark.square.fill",
                     title: "Green Pixels",
-                    value: formatNumber(resultsAppColors.successPixels),
+                    value: formatNumber(results.greenPixels),
                     color: AppColors.success
                 )
             }
@@ -132,7 +132,7 @@ struct ResultsView: View {
                     icon: "timer",
                     title: "Processing Time",
                     value: String(format: "%.2fs", results.processingTime),
-                    color: .blue
+                    color: AppColors.secondary
                 )
                 
                 StatCard(
@@ -223,7 +223,7 @@ struct ResultsView: View {
         guard let processedImage = processedImage else { return }
         
         // Create image with percentage overlay
-        let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: resultsAppColors.successPercentage)
+        let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: results.greenPercentage)
         
         // Request permission first
         PHPhotoLibrary.requestAuthorization { status in
@@ -231,7 +231,7 @@ struct ResultsView: View {
                 switch status {
                 case .authorized, .limited:
                     // Save the image with custom filename
-                    self.saveImageWithMetadata(imageWithOverlay, percentage: self.resultsAppColors.successPercentage)
+                    self.saveImageWithMetadata(imageWithOverlay, percentage: self.results.greenPercentage)
                 case .denied, .restricted:
                     self.saveAlertMessage = "Please enable photo library access in Settings to save images."
                     self.showingSaveAlert = true
@@ -261,7 +261,7 @@ struct ResultsView: View {
             let font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: font,
-                .foregroundColor: UIColor.white
+                .foregroundColor: UIColor(AppColors.backgroundLight)
             ]
             
             let textSize = percentageText.size(withAttributes: attributes)
@@ -275,7 +275,7 @@ struct ResultsView: View {
             
             // Draw badge background
             let badgePath = UIBezierPath(roundedRect: badgeRect, cornerRadius: cornerRadius)
-            context.cgContext.setFillColor(UIColor.systemGreen.cgColor)
+            context.cgContext.setFillColor(UIColor(AppColors.success).cgColor)
             context.cgContext.addPath(badgePath.cgPath)
             context.cgContext.fillPath()
             
@@ -319,7 +319,7 @@ struct ResultsView: View {
         
         // Add the segmented image with overlay
         if let processedImage = processedImage {
-            let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: resultsAppColors.successPercentage)
+            let imageWithOverlay = createImageWithPercentageOverlay(image: processedImage, percentage: results.greenPercentage)
             items.append(imageWithOverlay)
         }
         
@@ -333,9 +333,9 @@ struct ResultsView: View {
         Date: \(dateFormatter.string(from: Date()))
         
         📊 ANALYSIS RESULTS
-        • Green Coverage: \(String(format: "%.1f%%", resultsAppColors.successPercentage))
+        • Green Coverage: \(String(format: "%.1f%%", results.greenPercentage))
         • Total Pixels Analyzed: \(formatNumber(results.totalPixels))
-        • Green Pixels Detected: \(formatNumber(resultsAppColors.successPixels))
+        • Green Pixels Detected: \(formatNumber(results.greenPixels))
         • Processing Time: \(String(format: "%.2f", results.processingTime)) seconds
         • Detection Accuracy: High
         
@@ -433,14 +433,14 @@ struct InsightsCard: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            .background(ColorAppColors.warning.opacity(0.1))
+            .background(AppColors.warning.opacity(0.1))
             .cornerRadius(8)
             
             // Chemical Mixing Recommendation
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "drop.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(AppColors.secondary)
                     Text("Chemical Mixing Guide")
                         .font(.headline)
                 }
@@ -448,7 +448,7 @@ struct InsightsCard: View {
                 Text(chemicalMixingAdvice)
                     .font(.subheadline)
                     .fontWeight(.medium)
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppColors.secondary)
                 
                 Text("Always follow manufacturer guidelines and local regulations")
                     .font(.caption)

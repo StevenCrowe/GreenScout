@@ -104,7 +104,7 @@ struct CalculationResultView: View {
         
         Field Details:
         • Size: \(String(format: "%.1f", result.fieldData.area)) \(result.fieldData.areaUnit.rawValue)
-        • Green Coverage: \(String(format: "%.1f", result.fieldDataAppColors.successCoveragePercent))%
+        • Green Coverage: \(String(format: "%.1f", result.fieldData.greenCoveragePercent))%
         • Crop Type: \(result.fieldData.cropType.rawValue)
         
         Chemical Requirements:
@@ -180,7 +180,7 @@ struct ChemicalRequirementsCard: View {
                     value: result.totalChemicalNeeded,
                     specifier: "%.1f",
                     unit: "L",
-                    color: .blue
+                    color: AppColors.secondary
                 )
                 
                 Divider()
@@ -254,13 +254,13 @@ struct ApplicationDetailsCard: View {
                 
                 DetailRow(
                     label: "Green Coverage",
-                    value: "\(String(format: "%.1f", result.fieldDataAppColors.successCoveragePercent))%",
-                    color: colorForCoverage(result.fieldDataAppColors.successCoveragePercent)
+                    value: "\(String(format: "%.1f", result.fieldData.greenCoveragePercent))%",
+                    color: colorForCoverage(result.fieldData.greenCoveragePercent)
                 )
                 
                 DetailRow(
                     label: "Density Level",
-                    value: DensityLevel.from(greenCoverage: result.fieldDataAppColors.successCoveragePercent).description
+                    value: DensityLevel.from(greenCoverage: result.fieldData.greenCoveragePercent).description
                 )
                 
                 DetailRow(
@@ -344,7 +344,7 @@ struct MixingInstructionRow: View {
                         Text("\(String(format: "%.1f", amount)) \(unit)")
                             .font(.caption)
                             .fontWeight(.semibold)
-                            .foregroundColor(.blue)
+                            .foregroundColor(AppColors.secondary)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

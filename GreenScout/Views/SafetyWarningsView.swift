@@ -35,7 +35,7 @@ struct SafetyWarningsView: View {
                 }
             }
             .padding()
-            .background(ColorAppColors.warning.opacity(0.1))
+            .background(AppColors.warning.opacity(0.1))
             .cornerRadius(10)
         }
     }
