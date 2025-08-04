@@ -28,7 +28,7 @@ struct ResultsView: View {
                 HStack {
                     Image(systemName: "leaf.fill")
                         .font(.largeTitle)
-                        .foregroundColor(.green)
+                        .foregroundColor(AppColors.success)
                     
                     VStack(alignment: .leading) {
                         Text("Green Coverage")
@@ -36,7 +36,7 @@ struct ResultsView: View {
                         Text(String(format: "%.1f%%", results.greenPercentage))
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.green)
+                            .foregroundColor(AppColors.success)
                     }
                     
                     Spacer()
@@ -46,11 +46,11 @@ struct ResultsView: View {
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.2))
+                            .fill(AppColors.textSecondary.opacity(0.2))
                             .frame(height: 20)
                         
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.green)
+                            .fill(AppColors.success)
                             .frame(width: geometry.size.width * CGFloat(results.greenPercentage / 100), height: 20)
                             .animation(.easeInOut(duration: 0.5), value: results.greenPercentage)
                     }
@@ -58,7 +58,7 @@ struct ResultsView: View {
                 .frame(height: 20)
             }
             .padding()
-            .background(Color.green.opacity(0.1))
+            .background(AppColors.success.opacity(0.1))
             .cornerRadius(12)
             
             // Images Section - Original and Segmented
@@ -68,7 +68,7 @@ struct ResultsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Original")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         Image(uiImage: original)
                             .resizable()
@@ -82,13 +82,13 @@ struct ResultsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Segmented View")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppColors.textSecondary)
                         
                         Image(uiImage: processed)
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 200)
-                            .background(Color.black)
+                            .background(AppColors.backgroundDark)
                             .cornerRadius(8)
                             .shadow(radius: 2)
                     }
@@ -106,7 +106,7 @@ struct ResultsView: View {
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
-                    .tint(.green)
+                    .tint(AppColors.success)
                 }
             }
             
@@ -122,7 +122,7 @@ struct ResultsView: View {
                     icon: "checkmark.square.fill",
                     title: "Green Pixels",
                     value: formatNumber(results.greenPixels),
-                    color: .green
+                    color: AppColors.success
                 )
             }
             
@@ -132,14 +132,14 @@ struct ResultsView: View {
                     icon: "timer",
                     title: "Processing Time",
                     value: String(format: "%.2fs", results.processingTime),
-                    color: .blue
+                    color: AppColors.secondary
                 )
                 
                 StatCard(
                     icon: "waveform.path.ecg",
                     title: "Accuracy",
                     value: "High",
-                    color: .orange
+                    color: AppColors.warning
                 )
             }
             
@@ -261,7 +261,7 @@ struct ResultsView: View {
             let font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: font,
-                .foregroundColor: UIColor.white
+                .foregroundColor: UIColor(AppColors.backgroundLight)
             ]
             
             let textSize = percentageText.size(withAttributes: attributes)
@@ -275,7 +275,7 @@ struct ResultsView: View {
             
             // Draw badge background
             let badgePath = UIBezierPath(roundedRect: badgeRect, cornerRadius: cornerRadius)
-            context.cgContext.setFillColor(UIColor.systemGreen.cgColor)
+            context.cgContext.setFillColor(UIColor(AppColors.success).cgColor)
             context.cgContext.addPath(badgePath.cgPath)
             context.cgContext.fillPath()
             
@@ -369,7 +369,7 @@ struct StatCard: View {
             
             Text(title)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.textSecondary)
             
             Text(value)
                 .font(.headline)
@@ -377,7 +377,7 @@ struct StatCard: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(AppColors.textSecondary.opacity(0.1))
         .cornerRadius(8)
     }
 }
@@ -421,26 +421,26 @@ struct InsightsCard: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "lightbulb.fill")
-                        .foregroundColor(.yellow)
+                        .foregroundColor(AppColors.warning)
                     Text("Agricultural Insight")
                         .font(.headline)
                 }
                 
                 Text(recommendation)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            .background(Color.yellow.opacity(0.1))
+            .background(AppColors.warning.opacity(0.1))
             .cornerRadius(8)
             
             // Chemical Mixing Recommendation
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "drop.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(AppColors.secondary)
                     Text("Chemical Mixing Guide")
                         .font(.headline)
                 }
@@ -448,15 +448,15 @@ struct InsightsCard: View {
                 Text(chemicalMixingAdvice)
                     .font(.subheadline)
                     .fontWeight(.medium)
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppColors.secondary)
                 
                 Text("Always follow manufacturer guidelines and local regulations")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.textSecondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            .background(Color.blue.opacity(0.1))
+            .background(AppColors.secondary.opacity(0.1))
             .cornerRadius(8)
         }
     }

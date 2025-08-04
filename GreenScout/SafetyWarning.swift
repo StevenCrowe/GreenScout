@@ -54,11 +54,11 @@ enum WarningSeverity {
     var color: Color {
         switch self {
         case .critical: 
-            return .red
+            return AppColors.error
         case .warning: 
-            return .orange
+            return AppColors.warning
         case .caution: 
-            return .yellow
+            return AppColors.warning
         }
     }
 }
