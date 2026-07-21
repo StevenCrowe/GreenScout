@@ -14,7 +14,9 @@ struct ResultsView: View {
     let processedImage: UIImage?
     let processedImageTransparent: UIImage?
     let imageMetadata: ImageMetadata?
-    
+    @Binding var sensitivity: GreenSensitivity
+    var isAnalyzing: Bool = false
+
     @State private var showingSaveAlert = false
     @State private var saveAlertMessage = ""
     @State private var showingShareSheet = false
@@ -28,71 +30,75 @@ struct ResultsView: View {
                 HStack {
                     Image(systemName: "leaf.fill")
                         .font(.largeTitle)
-                        .foregroundColor(.green)
-                    
-                    VStack(alignment: .leading) {
+                        .foregroundColor(GA.brand)
+
+                    VStack(alignment: .leading, spacing: 2) {
                         Text("Green Coverage")
                             .font(.headline)
+                            .foregroundColor(GA.ink)
                         Text(String(format: "%.1f%%", results.greenPercentage))
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.green)
+                            .foregroundColor(GA.brand)
                     }
-                    
+
                     Spacer()
                 }
-                
+
                 // Progress Bar
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(height: 20)
-                        
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.green)
-                            .frame(width: geometry.size.width * CGFloat(results.greenPercentage / 100), height: 20)
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(GA.line)
+                            .frame(height: 18)
+
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(GA.brand)
+                            .frame(width: geometry.size.width * CGFloat(results.greenPercentage / 100), height: 18)
                             .animation(.easeInOut(duration: 0.5), value: results.greenPercentage)
                     }
                 }
-                .frame(height: 20)
+                .frame(height: 18)
             }
-            .padding()
-            .background(Color.green.opacity(0.1))
-            .cornerRadius(12)
-            
+            .gaPanel()
+
+            // Green strictness — sits directly under the number it controls
+            GreenSensitivityPicker(sensitivity: $sensitivity, isAnalyzing: isAnalyzing)
+
             // Images Section - Original and Segmented
             if let original = originalImage, let processed = processedImage {
                 VStack(spacing: 12) {
                     // Original Image
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("Original")
                             .font(.caption)
-                            .foregroundColor(.secondary)
-                        
+                            .fontWeight(.semibold)
+                            .foregroundColor(GA.inkMuted)
+
                         Image(uiImage: original)
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 200)
-                            .cornerRadius(8)
-                            .shadow(radius: 2)
+                            .clipShape(RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous))
+                            .overlay(RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous).stroke(GA.line, lineWidth: 1))
                     }
-                    
+
                     // Segmented Image
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("Segmented View")
                             .font(.caption)
-                            .foregroundColor(.secondary)
-                        
+                            .fontWeight(.semibold)
+                            .foregroundColor(GA.inkMuted)
+
                         Image(uiImage: processed)
                             .resizable()
                             .scaledToFit()
-                            .frame(maxHeight: 200)
+                            .frame(maxWidth: .infinity, maxHeight: 200)
                             .background(Color.black)
-                            .cornerRadius(8)
-                            .shadow(radius: 2)
+                            .clipShape(RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous))
+                            .overlay(RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous).stroke(GA.line, lineWidth: 1))
                     }
-                    
+
                     // Compare button
                     Button(action: {
                         showingImageComparison = true
@@ -100,80 +106,37 @@ struct ResultsView: View {
                         HStack {
                             Image(systemName: "slider.horizontal.below.rectangle")
                             Text("Compare Images")
-                                .fontWeight(.medium)
                         }
-                        .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.regular)
-                    .tint(.green)
+                    .buttonStyle(GASecondaryButtonStyle(tint: GA.brand))
                 }
             }
             
-            // Statistics Grid
-            HStack(spacing: 16) {
-                StatCard(
-                    icon: "square.grid.3x3",
-                    title: "Total Pixels",
-                    value: formatNumber(results.totalPixels)
-                )
-                
-                StatCard(
-                    icon: "checkmark.square.fill",
-                    title: "Green Pixels",
-                    value: formatNumber(results.greenPixels),
-                    color: .green
-                )
-            }
-            
-            // Processing Info
-            HStack(spacing: 16) {
-                StatCard(
-                    icon: "timer",
-                    title: "Processing Time",
-                    value: String(format: "%.2fs", results.processingTime),
-                    color: .blue
-                )
-                
-                StatCard(
-                    icon: "waveform.path.ecg",
-                    title: "Accuracy",
-                    value: "High",
-                    color: .orange
-                )
-            }
-            
-            // Show Metadata Button (for testing)
+            // Show Metadata Button
             Button(action: {
                 showingMetadata = true
             }) {
                 HStack {
                     Image(systemName: "info.circle")
                     Text("Show Photo Data")
-                        .fontWeight(.medium)
                 }
-                .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
-            .controlSize(.regular)
-            .padding(.horizontal)
-            
+            .buttonStyle(GASecondaryButtonStyle())
+
             // Download/Share Buttons
-            HStack(spacing: 16) {
-                // Save to Photos Button
+            HStack(spacing: 12) {
+                // Save to Photos Button (primary)
                 Button(action: {
                     saveImageToPhotoLibrary()
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down")
-                        Text("Save Image")
-                            .fontWeight(.semibold)
+                        Text("Save")
                     }
-                    .frame(maxWidth: .infinity)
+                    .lineLimit(1)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                
+                .buttonStyle(GAPrimaryButtonStyle())
+
                 // Share Button
                 Button(action: {
                     showingShareSheet = true
@@ -181,14 +144,11 @@ struct ResultsView: View {
                     HStack {
                         Image(systemName: "square.and.arrow.up")
                         Text("Share")
-                            .fontWeight(.semibold)
                     }
-                    .frame(maxWidth: .infinity)
+                    .lineLimit(1)
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
+                .buttonStyle(GASecondaryButtonStyle())
             }
-            .padding(.horizontal)
         }
         .alert("Save Image", isPresented: $showingSaveAlert) {
             Button("OK", role: .cancel) { }
@@ -215,7 +175,7 @@ struct ResultsView: View {
             }
         }
         .sheet(isPresented: $showingMetadata) {
-            MetadataDetailView(metadata: imageMetadata)
+            MetadataDetailView(metadata: imageMetadata, results: results)
         }
     }
     
@@ -336,9 +296,8 @@ struct ResultsView: View {
         • Green Coverage: \(String(format: "%.1f%%", results.greenPercentage))
         • Total Pixels Analyzed: \(formatNumber(results.totalPixels))
         • Green Pixels Detected: \(formatNumber(results.greenPixels))
-        • Processing Time: \(String(format: "%.2f", results.processingTime)) seconds
-        • Detection Accuracy: High
-        
+        • Sensitivity: \(sensitivity.label)
+
         GreenScout by Goldacres
         """
         

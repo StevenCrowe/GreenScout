@@ -68,23 +68,20 @@ struct ImageComparisonView: View {
                                     }
                                 )
                             
-                            // Analyzed image (top layer with clipping)
+                            // Analyzed image (top layer), revealed from the left up to the
+                            // slider with a rectangular clip. This is far cheaper per frame
+                            // than an alpha mask, which is what made the slider lag.
                             Image(uiImage: analyzedImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: imageContainerGeometry.size.width, height: imageContainerGeometry.size.height)
-                                .mask(
-                                    GeometryReader { maskGeometry in
-                                        // Always use slider mask for comparison
-                                        HStack(spacing: 0) {
-                                            Rectangle()
-                                                .frame(width: maskGeometry.size.width * sliderPosition)
-                                            
-                                            Color.clear
-                                                .frame(width: maskGeometry.size.width * (1 - sliderPosition))
-                                        }
-                                    }
-                                )
+                                .frame(width: max(0, imageContainerGeometry.size.width * sliderPosition),
+                                       height: imageContainerGeometry.size.height,
+                                       alignment: .leading)
+                                .clipped()
+                                .frame(width: imageContainerGeometry.size.width,
+                                       height: imageContainerGeometry.size.height,
+                                       alignment: .leading)
                             
                             // Slider overlay - always visible
                             if actualImageFrame.width > 0 {

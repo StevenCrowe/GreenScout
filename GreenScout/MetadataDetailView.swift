@@ -10,7 +10,14 @@ import MapKit
 
 struct MetadataDetailView: View {
     let metadata: ImageMetadata?
+    var results: AnalysisResults? = nil
     @Environment(\.presentationMode) var presentationMode
+
+    private func formatNumber(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
+    }
     
     var body: some View {
         NavigationView {
@@ -78,6 +85,10 @@ struct MetadataDetailView: View {
 
                     Section(header: Text("Analysis")) {
                         Text("Green Coverage: \(String(format: "%.1f%%", metadata.greenCoveragePercentage ?? 0.0))")
+                        if let results = results {
+                            Text("Green Pixels: \(formatNumber(results.greenPixels))")
+                            Text("Total Pixels: \(formatNumber(results.totalPixels))")
+                        }
                     }
 
                 } else {

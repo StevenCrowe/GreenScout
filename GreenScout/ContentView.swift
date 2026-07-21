@@ -46,15 +46,16 @@ struct ContentScrollView: View {
                         VStack(spacing: 8) {
                             Image(systemName: "leaf.circle.fill")
                                 .font(.system(size: 60))
-                                .foregroundColor(.green)
-                            
+                                .foregroundColor(GA.brand)
+
                             Text("GreenScout")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                            
+                                .foregroundColor(GA.ink)
+
                             Text("Analyze green coverage in your fields")
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(GA.inkMuted)
                         }
                         .padding(.top)
                     }
@@ -79,29 +80,28 @@ struct ContentScrollView: View {
                                 VStack(spacing: 12) {
                                     Image(systemName: "photo.on.rectangle.angled")
                                         .font(.system(size: 50))
-                                        .foregroundColor(.secondary)
-                                    
+                                        .foregroundColor(GA.brand)
+
                                     Text("Tap to select an image")
                                         .font(.headline)
-                                        .foregroundColor(.secondary)
-                                    
+                                        .foregroundColor(GA.ink)
+
                                     Text("Choose from library or camera")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
-                                    
+                                        .foregroundColor(GA.inkMuted)
+
                                     Text("For best results, use high-quality images")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
-                                        .italic()
+                                        .foregroundColor(GA.inkMuted)
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 200)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
+                                .background(GA.surfacePanel)
+                                .clipShape(RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
+                                    RoundedRectangle(cornerRadius: GA.radiusPanel, style: .continuous)
                                         .stroke(style: StrokeStyle(lineWidth: 2, dash: [8]))
-                                        .foregroundColor(.gray.opacity(0.3))
+                                        .foregroundColor(GA.line)
                                 )
                                 .contentShape(Rectangle())
                                 .onTapGesture {
@@ -149,16 +149,19 @@ struct ContentScrollView: View {
                                         Image(systemName: "photo")
                                         Text("Choose Another Image")
                                     }
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 12)
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
                                 }
+                                .buttonStyle(GAPrimaryButtonStyle())
                                 .padding(.horizontal)
                             }
                         }
                         
+                        // Green sensitivity control (once an image is chosen, before analysing)
+                        if viewModel.selectedImage != nil && !viewModel.isAnalyzing {
+                            GreenSensitivityPicker(sensitivity: $viewModel.sensitivity,
+                                                   isAnalyzing: viewModel.isAnalyzing)
+                                .padding(.horizontal)
+                        }
+
                         // Analyze Button
                         if viewModel.selectedImage != nil {
                             if viewModel.isAnalyzing {
@@ -232,11 +235,8 @@ struct ContentScrollView: View {
                                     viewModel.analyzeImage()
                                 }) {
                                     Text("Analyze Green Coverage")
-                                        .fontWeight(.semibold)
-                                        .frame(maxWidth: .infinity)
                                 }
-                                .buttonStyle(.borderedProminent)
-                                .controlSize(.large)
+                                .buttonStyle(GAPrimaryButtonStyle())
                                 .disabled(viewModel.imageQualityWarning?.contains("too low") == true)
                                 .padding(.horizontal)
                             }
@@ -245,7 +245,7 @@ struct ContentScrollView: View {
                     
                     // Results Section
                     if let results = viewModel.analysisResults {
-                        ResultsView(results: results, originalImage: viewModel.selectedImage, processedImage: viewModel.processedImage, processedImageTransparent: viewModel.processedImageTransparent, imageMetadata: viewModel.imageMetadata)
+                        ResultsView(results: results, originalImage: viewModel.displayImage ?? viewModel.selectedImage, processedImage: viewModel.processedImage, processedImageTransparent: viewModel.processedImageTransparent, imageMetadata: viewModel.imageMetadata, sensitivity: $viewModel.sensitivity, isAnalyzing: viewModel.isAnalyzing)
                             .padding(.horizontal)
                         
                         // Image Quality Info near Analyze Another button
@@ -279,19 +279,31 @@ struct ContentScrollView: View {
                             HStack {
                                 Image(systemName: "camera.fill")
                                 Text("Analyze Another Image")
-                                    .fontWeight(.semibold)
                             }
-                            .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.bordered)
-                        .controlSize(.large)
+                        .buttonStyle(GASecondaryButtonStyle())
                         .padding(.horizontal)
                     }
                     
                     Spacer(minLength: 50)
             }
         }
+        .background(GA.surfacePage.ignoresSafeArea())
         .navigationBarHidden(true)
+        .overlay {
+            // Prominent centre-screen cue during a quick re-run (sensitivity change).
+            if viewModel.isAnalyzing && viewModel.analysisResults != nil {
+                RecalculatingOverlay()
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: viewModel.isAnalyzing)
+        .onChange(of: viewModel.sensitivity) { _ in
+            // If results are already on screen, re-run so the operator sees the
+            // effect of the new strictness immediately (Strict/Balanced/Loose A/B).
+            if viewModel.analysisResults != nil && viewModel.selectedImage != nil {
+                viewModel.analyzeImage()
+            }
+        }
         .sheet(isPresented: $showingImagePicker) {
             PhotoPicker(image: $viewModel.selectedImage, 
                        onImageDataReceived: { imageData in
@@ -332,6 +344,77 @@ struct ContentScrollView: View {
         } else {
             return .blue
         }
+    }
+}
+
+// Reusable green-strictness control, shown before a scan and again on the result,
+// directly under the number it controls. Changing it re-runs analysis (see ContentView).
+struct GreenSensitivityPicker: View {
+    @Binding var sensitivity: GreenSensitivity
+    var isAnalyzing: Bool = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: "slider.horizontal.3")
+                    .foregroundColor(GA.brand)
+                Text("Green sensitivity")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(GA.ink)
+                Spacer()
+                // Live "it's working" cue when a mode change re-runs analysis.
+                if isAnalyzing {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: GA.brand))
+                        .scaleEffect(0.8)
+                    Text("Recalculating…")
+                        .font(.caption)
+                        .foregroundColor(GA.inkMuted)
+                }
+            }
+            Picker("Green sensitivity", selection: $sensitivity) {
+                ForEach(GreenSensitivity.allCases) { level in
+                    Text(level.label).tag(level)
+                }
+            }
+            .pickerStyle(.segmented)
+            .tint(GA.brand)
+            .disabled(isAnalyzing)
+            Text(sensitivity.blurb)
+                .font(.caption)
+                .foregroundColor(GA.inkMuted)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+}
+
+// Centre-of-screen "working" indicator: dimmed backdrop + pulsing leaf, shown
+// briefly on quick re-runs so a sensitivity change is clearly registered.
+struct RecalculatingOverlay: View {
+    @State private var pulse = false
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.25)
+                .ignoresSafeArea()
+            VStack(spacing: 16) {
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 46))
+                    .foregroundColor(.green)
+                    .scaleEffect(pulse ? 1.15 : 0.82)
+                    .opacity(pulse ? 1.0 : 0.55)
+                    .animation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true), value: pulse)
+                Text("Recalculating…")
+                    .font(.headline)
+                    .foregroundColor(.primary)
+            }
+            .padding(30)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
+            .shadow(color: .black.opacity(0.2), radius: 12, y: 4)
+        }
+        .onAppear { pulse = true }
+        .transition(.opacity)
     }
 }
 

@@ -12,6 +12,39 @@ import Accelerate
 import Photos
 import ImageIO
 
+/// Controls how strict green-pixel detection is.
+///
+/// "Green" is a judgement call in the field — a dry-stubble paddock and a lush
+/// irrigated crop want different answers — so the operator picks the strictness.
+/// Each case tunes the HSV band and the margin green must beat red/blue by.
+/// See the colour table in the project notes for why the old 60°–180° band
+/// counted pure yellow, chlorotic leaves and even cyan sky as "green".
+enum GreenSensitivity: String, CaseIterable, Identifiable {
+    case strict   = "Strict"
+    case balanced = "Balanced"
+    case loose    = "Loose"
+
+    var id: String { rawValue }
+    var label: String { rawValue }
+
+    /// One-line explanation shown under the picker.
+    var blurb: String {
+        switch self {
+        case .strict:   return "Only vivid, healthy green — excludes anything yellowing."
+        case .balanced: return "Recommended. Real green; rejects yellow, straw and sky."
+        case .loose:    return "Includes yellow-green and early senescence."
+        }
+    }
+
+    // Hue is in degrees (0–360); saturation and value are 0–1.
+    var hueLow: CGFloat        { self == .strict ? 90  : self == .balanced ? 78  : 62 }
+    var hueHigh: CGFloat       { self == .strict ? 158 : self == .balanced ? 160 : 172 }
+    var saturationMin: CGFloat { self == .strict ? 0.25 : self == .balanced ? 0.18 : 0.10 }
+    var valueMin: CGFloat      { self == .strict ? 0.15 : self == .balanced ? 0.15 : 0.12 }
+    /// Minimum amount green must exceed the larger of red/blue (0–1).
+    var greenExcessMin: CGFloat { self == .strict ? 0.06 : self == .balanced ? 0.02 : 0.0 }
+}
+
 class ImageAnalysisViewModel: ObservableObject {
     @Published var selectedImage: UIImage? {
         didSet {
@@ -19,6 +52,7 @@ class ImageAnalysisViewModel: ObservableObject {
             analysisResults = nil
             processedImage = nil
             processedImageTransparent = nil
+            displayImage = nil
             imageQualityWarning = nil
             imageMetadata = nil
             currentPhotoAsset = nil
@@ -33,9 +67,14 @@ class ImageAnalysisViewModel: ObservableObject {
     @Published var isAnalyzing = false
     @Published var processedImage: UIImage?
     @Published var processedImageTransparent: UIImage?
+    /// Display-sized copy of the original (keeps the preview and comparison view smooth).
+    @Published var displayImage: UIImage?
     @Published var imageQualityWarning: String?
     @Published var imageMetadata: ImageMetadata?
-    
+
+    /// How strict green detection is. Changing it re-runs analysis (see ContentView).
+    @Published var sensitivity: GreenSensitivity = .balanced
+
     // Store the photo asset for metadata extraction
     var currentPhotoAsset: PHAsset?
     // Store image data for metadata extraction
@@ -49,22 +88,25 @@ class ImageAnalysisViewModel: ObservableObject {
     private let recommendedPixels = 4096 * 4096  // 16 megapixels recommended
     
     func analyzeImage() {
-        guard let image = selectedImage else { return }
-        
+        guard let image = selectedImage, !isAnalyzing else { return }
+
         isAnalyzing = true
-        
+        // Capture on the main thread before crossing to the background queue.
+        let sensitivity = self.sensitivity
+        let isReanalysis = analysisResults != nil
+
         // Perform analysis on background queue
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
             let startTime = Date()
-            
-            // Add a small delay to ensure progress bar is visible
-            Thread.sleep(forTimeInterval: 0.5)
-            
+
             // Fix orientation first
             let orientedImage = image.fixedOrientation()
-            
+            // A display-sized copy for the preview and comparison view — compositing the
+            // full-resolution original under gestures is what made the slider lag.
+            let displayOriginal = orientedImage.downscaled(maxDimension: 1400)
+
             // Convert UIImage to CIImage for processing
             guard let ciImage = CIImage(image: orientedImage) else {
                 DispatchQueue.main.async {
@@ -75,7 +117,8 @@ class ImageAnalysisViewModel: ObservableObject {
             
             // Get image dimensions
             let extent = ciImage.extent
-            
+            let originalPixelCount = Int(extent.width * extent.height)
+
             // Create bitmap context
             guard let cgImage = self.context.createCGImage(ciImage, from: extent) else {
                 DispatchQueue.main.async {
@@ -84,15 +127,14 @@ class ImageAnalysisViewModel: ObservableObject {
                 return
             }
             
-            // Analyze pixels
-            let (greenPixelCount, totalPixelCount, processedCGImage, transparentCGImage) = self.analyzePixels(in: cgImage)
-            
-            // Calculate percentage
-            let greenPercentage = totalPixelCount > 0 ? (Double(greenPixelCount) / Double(totalPixelCount)) * 100 : 0
-            
-            // Apply calibration factor based on agricultural use case
-            // This matches the calibration from the original web app
-            let calibratedPercentage = greenPercentage
+            // Analyze pixels (downsampled internally for speed — the coverage ratio is unaffected)
+            let (greenPixelCount, analyzedPixelCount, processedCGImage, transparentCGImage) = self.analyzePixels(in: cgImage, sensitivity: sensitivity)
+
+            // Coverage percentage from the analysed sample
+            let greenPercentage = analyzedPixelCount > 0 ? (Double(greenPixelCount) / Double(analyzedPixelCount)) * 100 : 0
+
+            // Report pixel counts on the real image's scale so the numbers stay meaningful
+            let displayGreenPixels = Int((greenPercentage / 100.0) * Double(originalPixelCount))
             
             let processingTime = Date().timeIntervalSince(startTime)
             
@@ -103,27 +145,43 @@ class ImageAnalysisViewModel: ObservableObject {
             // Update UI on main thread
             DispatchQueue.main.async {
                 self.analysisResults = AnalysisResults(
-                    greenPercentage: min(100, calibratedPercentage),
-                    totalPixels: totalPixelCount,
-                    greenPixels: greenPixelCount,
+                    greenPercentage: min(100, greenPercentage),
+                    totalPixels: originalPixelCount,
+                    greenPixels: displayGreenPixels,
                     processingTime: processingTime,
                     rawPercentage: greenPercentage,
                     sensitivityUsed: 1.0
                 )
+                self.displayImage = displayOriginal
                 self.processedImage = processedUIImage
                 self.processedImageTransparent = transparentUIImage
-                
+
                 // Extract and save metadata
-                self.extractAndSaveMetadata(greenPercentage: calibratedPercentage)
-                
-                self.isAnalyzing = false
+                self.extractAndSaveMetadata(greenPercentage: greenPercentage)
+
+                // On quick re-runs (a sensitivity change) hold the "Recalculating…"
+                // overlay on screen long enough to be noticed, without slowing analysis.
+                let elapsed = Date().timeIntervalSince(startTime)
+                let minVisible = 0.5
+                if isReanalysis && elapsed < minVisible {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (minVisible - elapsed)) {
+                        self.isAnalyzing = false
+                    }
+                } else {
+                    self.isAnalyzing = false
+                }
             }
         }
     }
     
-    private func analyzePixels(in cgImage: CGImage) -> (greenPixels: Int, totalPixels: Int, processedImage: CGImage?, transparentImage: CGImage?) {
-        let width = cgImage.width
-        let height = cgImage.height
+    private func analyzePixels(in cgImage: CGImage, sensitivity: GreenSensitivity) -> (greenPixels: Int, totalPixels: Int, processedImage: CGImage?, transparentImage: CGImage?) {
+        // Downsample large images before the per-pixel scan. A 24 MP photo and its
+        // ~1.3 MP downsample give the same coverage %, but the scan is ~20x faster.
+        let maxDimension = 1400
+        let sourceMax = Swift.max(cgImage.width, cgImage.height)
+        let scale = sourceMax > maxDimension ? CGFloat(maxDimension) / CGFloat(sourceMax) : 1.0
+        let width = Swift.max(1, Int((CGFloat(cgImage.width) * scale).rounded()))
+        let height = Swift.max(1, Int((CGFloat(cgImage.height) * scale).rounded()))
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
         let bitsPerComponent = 8
@@ -160,7 +218,7 @@ class ImageAnalysisViewModel: ObservableObject {
                 let g = CGFloat(data[pixelIndex + 1]) / 255.0
                 let b = CGFloat(data[pixelIndex + 2]) / 255.0
                 
-                if isGreenPixel(r: r, g: g, b: b) {
+                if isGreenPixel(r: r, g: g, b: b, sensitivity: sensitivity) {
                     greenPixelCount += 1
                     
                     // Keep green pixels as they are (or make them bright green)
@@ -208,7 +266,7 @@ class ImageAnalysisViewModel: ObservableObject {
                 let g = CGFloat(tData[pixelIndex + 1]) / 255.0
                 let b = CGFloat(tData[pixelIndex + 2]) / 255.0
                 
-                if isGreenPixel(r: r, g: g, b: b) {
+                if isGreenPixel(r: r, g: g, b: b, sensitivity: sensitivity) {
                     // Make green pixels bright green
                     tData[pixelIndex] = 0       // R
                     tData[pixelIndex + 1] = 255 // G
@@ -226,18 +284,19 @@ class ImageAnalysisViewModel: ObservableObject {
         return (greenPixelCount, totalPixelCount, processedImage, transparentImage)
     }
     
-    private func isGreenPixel(r: CGFloat, g: CGFloat, b: CGFloat) -> Bool {
-        // Convert RGB to HSV for better green detection
-        let max = Swift.max(r, g, b)
-        let min = Swift.min(r, g, b)
-        let delta = max - min
-        
-        // Calculate hue
+    private func isGreenPixel(r: CGFloat, g: CGFloat, b: CGFloat, sensitivity: GreenSensitivity) -> Bool {
+        // Convert RGB to HSV — hue lets us separate green from yellow, which
+        // the old "green just has to beat red and blue" rule could not do.
+        let maxC = Swift.max(r, g, b)
+        let minC = Swift.min(r, g, b)
+        let delta = maxC - minC
+
+        // Hue in degrees (0–360). 60° is pure yellow, ~120° is pure green, 180° is cyan.
         var h: CGFloat = 0
         if delta > 0 {
-            if max == r {
+            if maxC == r {
                 h = ((g - b) / delta).truncatingRemainder(dividingBy: 6)
-            } else if max == g {
+            } else if maxC == g {
                 h = (b - r) / delta + 2
             } else {
                 h = (r - g) / delta + 4
@@ -245,26 +304,19 @@ class ImageAnalysisViewModel: ObservableObject {
             h = h * 60
             if h < 0 { h += 360 }
         }
-        
-        // Calculate saturation
-        let s = max == 0 ? 0 : delta / max
-        
-        // Calculate value
-        let v = max
-        
-        // Green hue range: approximately 60-180 degrees
-        // Adjust thresholds based on sensitivity
-        let hueInGreenRange = h >= 60 && h <= 180
-        let saturationThreshold = 0.15
-        let valueThreshold = 0.15
-        
-        // Additional check for green dominance in RGB
-        let greenDominant = g > r && g > b
-        let greenExcess = g - Swift.max(r, b)
-        let excessThreshold = 0.05
-        
-        return (hueInGreenRange && s >= saturationThreshold && v >= valueThreshold) ||
-               (greenDominant && greenExcess >= excessThreshold)
+
+        let s = maxC == 0 ? 0 : delta / maxC   // saturation 0–1
+        let v = maxC                            // value 0–1
+        let greenExcess = g - Swift.max(r, b)   // how far green leads red/blue
+
+        // A pixel is green only if it sits in the green hue band AND is colourful
+        // enough AND green genuinely leads. All four gates must pass — no hue-free
+        // escape hatch — so yellow (hue < ~78°) and cyan (hue > ~160°) are excluded.
+        return h >= sensitivity.hueLow
+            && h <= sensitivity.hueHigh
+            && s >= sensitivity.saturationMin
+            && v >= sensitivity.valueMin
+            && greenExcess >= sensitivity.greenExcessMin
     }
     
     private func checkImageQuality(_ image: UIImage) {
@@ -395,6 +447,21 @@ private extension ImageAnalysisViewModel {
 
 // Extension to fix image orientation
 extension UIImage {
+    /// Returns a copy scaled so its longest side is at most `maxDimension` pixels,
+    /// or self if already small enough. Keeps on-screen display and compositing cheap.
+    func downscaled(maxDimension: CGFloat) -> UIImage {
+        let longest = Swift.max(size.width, size.height)
+        guard longest > maxDimension else { return self }
+        let scaleFactor = maxDimension / longest
+        let newSize = CGSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+        return renderer.image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+
     func fixedOrientation() -> UIImage {
         // If image orientation is already correct, return it
         if imageOrientation == .up {
